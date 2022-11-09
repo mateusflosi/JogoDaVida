@@ -170,29 +170,6 @@ public class TabuleiroGOL extends JPanel implements ComponentListener, MouseList
                 // System.out.println("Vizinhos: " + vizinhosVivos);
 
                 if (tabuleiro[x][y]) {
-                    /**
-                     * Regra de sobrevivência.
-                     * Se uma célula está viva em um determinado instante,
-                     * e se a quantidade de seus vizinhos vivos é igual a
-                     * dois (02) ou três (03), a celula sobrevive na próxima
-                     * iteração.
-                     */
-                    if ((vizinhosVivos == 2) || (vizinhosVivos == 3)) {
-                        celulasVivas.add(new Point(x, y));
-                    }
-
-                    /**
-                     * Regra de morte 1.
-                     * Para uma célula viva, se em um instante a quantidade de vizinhos
-                     * vivos for menor que dois (02), na próxima iteração esta célula morre
-                     * por solidão (sub-população).
-                     * 
-                     * Regra de morte 2.
-                     * Para uma célula viva, se em um determinado instante a quantidade de
-                     * vizinhos vivos for maior do que três (03), na próxima iteração a
-                     * célula morre por super população.
-                     * 
-                     */
                 } else {
                     /**
                      * Regra de nascimento.
@@ -200,7 +177,7 @@ public class TabuleiroGOL extends JPanel implements ComponentListener, MouseList
                      * tem exatamente três (03) vizinhos vivos, então esta célula
                      * se torna viva na próxima iteração.
                      */
-                    if (vizinhosVivos == 3) {
+                    if (vizinhosVivos >= 2 && vizinhosVivos <= 4) {
                         celulasVivas.add(new Point(x, y));
                     }
                 } // Fim do else
@@ -212,8 +189,8 @@ public class TabuleiroGOL extends JPanel implements ComponentListener, MouseList
         repaint();
 
         try {
-            Thread.sleep(1000 / iteracaoPorSegundo);
-            // Thread.sleep(4000);
+            // Thread.sleep(1000 / iteracaoPorSegundo);
+            Thread.sleep(5000);
             run();
         } catch (InterruptedException ex) {
         }
